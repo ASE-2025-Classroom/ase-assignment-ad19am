@@ -1,8 +1,37 @@
-﻿################################################################################
-# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+# .gitignore
 ################################################################################
 
-/.vs/ASEportfolio/FileContentIndex/433d18d1-0a9e-44ff-a3be-939df53cf25d.vsidx
-/.vs/ASEportfolio/FileContentIndex
-/.vs/ASEportfolio/v17
-/.vs
+# Build results
+bin/
+obj/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.cache
+*.log
+*.pdb
+*.dbmdl
+*.opendb
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+*.nuspec
+*.nuget.props
+*.nuget.targets
+
+# Backup & auto-generated files
+*.bak
+*.tmp
+*.temp
+*.vspscc
+*.vssscc
+
+# Misc
+*.swp
+*.DS_Store
+Thumbs.db
