@@ -1,0 +1,10 @@
+C:\Users\i7 System\Source\Repos\ase-assignment-ad19am\MyBooseAppFramework\MyBooseAppFramework\bin\Debug\MyBooseAppFramework.exe.config
+C:\Users\i7 System\Source\Repos\ase-assignment-ad19am\MyBooseAppFramework\MyBooseAppFramework\bin\Debug\MyBooseAppFramework.exe
+C:\Users\i7 System\Source\Repos\ase-assignment-ad19am\MyBooseAppFramework\MyBooseAppFramework\bin\Debug\MyBooseAppFramework.pdb
+C:\Users\i7 System\Source\Repos\ase-assignment-ad19am\MyBooseAppFramework\MyBooseAppFramework\obj\Debug\MyBooseAppFramework.csproj.AssemblyReference.cache
+C:\Users\i7 System\Source\Repos\ase-assignment-ad19am\MyBooseAppFramework\MyBooseAppFramework\obj\Debug\MyBooseAppFramework.Properties.Resources.resources
+C:\Users\i7 System\Source\Repos\ase-assignment-ad19am\MyBooseAppFramework\MyBooseAppFramework\obj\Debug\MyBooseAppFramework.csproj.GenerateResource.cache
+C:\Users\i7 System\Source\Repos\ase-assignment-ad19am\MyBooseAppFramework\MyBooseAppFramework\obj\Debug\MyBooseAppFramework.csproj.CoreCompileInputs.cache
+C:\Users\i7 System\Source\Repos\ase-assignment-ad19am\MyBooseAppFramework\MyBooseAppFramework\obj\Debug\MyBooseAppFramework.exe
+C:\Users\i7 System\Source\Repos\ase-assignment-ad19am\MyBooseAppFramework\MyBooseAppFramework\obj\Debug\MyBooseAppFramework.pdb
+C:\Users\i7 System\Source\Repos\ase-assignment-ad19am\MyBooseAppFramework\MyBooseAppFramework\obj\Debug\MyBooseAppFramework.exe.config

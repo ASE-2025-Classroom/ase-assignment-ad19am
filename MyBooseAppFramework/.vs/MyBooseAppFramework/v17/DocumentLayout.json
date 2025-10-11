@@ -1,0 +1,36 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\i7 System\\source\\repos\\ase-assignment-ad19am\\MyBooseAppFramework\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{0453319C-4375-4EA9-AB95-E9B85DF1F85E}|MyBooseAppFramework\\MyBooseAppFramework.csproj|c:\\users\\i7 system\\source\\repos\\ase-assignment-ad19am\\mybooseappframework\\mybooseappframework\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{0453319C-4375-4EA9-AB95-E9B85DF1F85E}|MyBooseAppFramework\\MyBooseAppFramework.csproj|solutionrelative:mybooseappframework\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Form1.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\i7 System\\source\\repos\\ase-assignment-ad19am\\MyBooseAppFramework\\MyBooseAppFramework\\Form1.cs",
+              "RelativeDocumentMoniker": "MyBooseAppFramework\\Form1.cs",
+              "ToolTip": "C:\\Users\\i7 System\\source\\repos\\ase-assignment-ad19am\\MyBooseAppFramework\\MyBooseAppFramework\\Form1.cs [Design]",
+              "RelativeToolTip": "MyBooseAppFramework\\Form1.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-11T13:55:48.758Z",
+              "EditorCaption": " [Design]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
