@@ -3,18 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\i7 System\\source\\repos\\ase-assignment-ad19am\\MyBooseApp\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{8BC249C3-4F40-46C3-B374-FB84E37A4D89}|MyBooseApp\\MyBooseApp.csproj|c:\\users\\i7 system\\source\\repos\\ase-assignment-ad19am\\mybooseapp\\mybooseapp\\mybooseapp.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{8BC249C3-4F40-46C3-B374-FB84E37A4D89}|MyBooseApp\\MyBooseApp.csproj|solutionrelative:mybooseapp\\mybooseapp.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4689C9C6-C597-4B82-A48A-5E5775CA1C6F}|..\\MyBooseAppFramework\\MyBooseAppFramework.csproj|c:\\users\\i7 system\\source\\repos\\ase-assignment-ad19am\\mybooseappframework\\boosepen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4689C9C6-C597-4B82-A48A-5E5775CA1C6F}|..\\MyBooseAppFramework\\MyBooseAppFramework.csproj|c:\\users\\i7 system\\source\\repos\\ase-assignment-ad19am\\mybooseappframework\\booseprogramrunner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8BC249C3-4F40-46C3-B374-FB84E37A4D89}|MyBooseApp\\MyBooseApp.csproj|c:\\users\\i7 system\\source\\repos\\ase-assignment-ad19am\\mybooseapp\\mybooseapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BC249C3-4F40-46C3-B374-FB84E37A4D89}|MyBooseApp\\MyBooseApp.csproj|solutionrelative:mybooseapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{CFC9D9E1-78DC-4223-9EF7-44EBD00C23C8}|MyBooseAppTests\\MyBooseAppTests.csproj|c:\\users\\i7 system\\source\\repos\\ase-assignment-ad19am\\mybooseapp\\mybooseapptests\\unittest1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CFC9D9E1-78DC-4223-9EF7-44EBD00C23C8}|MyBooseAppTests\\MyBooseAppTests.csproj|solutionrelative:mybooseapptests\\unittest1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -29,53 +19,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "MyBooseApp",
-              "DocumentMoniker": "C:\\Users\\i7 System\\Source\\Repos\\ase-assignment-ad19am\\MyBooseApp\\MyBooseApp\\MyBooseApp.csproj",
-              "RelativeDocumentMoniker": "MyBooseApp\\MyBooseApp.csproj",
-              "ToolTip": "C:\\Users\\i7 System\\Source\\Repos\\ase-assignment-ad19am\\MyBooseApp\\MyBooseApp\\MyBooseApp.csproj*",
-              "RelativeToolTip": "MyBooseApp\\MyBooseApp.csproj*",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-11-13T21:33:30.268Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "BoosePen.cs",
-              "DocumentMoniker": "C:\\Users\\i7 System\\source\\repos\\ase-assignment-ad19am\\MyBooseAppFramework\\BoosePen.cs",
-              "RelativeDocumentMoniker": "..\\MyBooseAppFramework\\BoosePen.cs",
-              "ToolTip": "C:\\Users\\i7 System\\source\\repos\\ase-assignment-ad19am\\MyBooseAppFramework\\BoosePen.cs",
-              "RelativeToolTip": "..\\MyBooseAppFramework\\BoosePen.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-13T21:33:05.504Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "BooseProgramRunner.cs",
-              "DocumentMoniker": "C:\\Users\\i7 System\\source\\repos\\ase-assignment-ad19am\\MyBooseAppFramework\\BooseProgramRunner.cs",
-              "RelativeDocumentMoniker": "..\\MyBooseAppFramework\\BooseProgramRunner.cs",
-              "ToolTip": "C:\\Users\\i7 System\\source\\repos\\ase-assignment-ad19am\\MyBooseAppFramework\\BooseProgramRunner.cs",
-              "RelativeToolTip": "..\\MyBooseAppFramework\\BooseProgramRunner.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-13T21:33:03.482Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\i7 System\\source\\repos\\ase-assignment-ad19am\\MyBooseApp\\MyBooseApp\\Program.cs",
-              "RelativeDocumentMoniker": "MyBooseApp\\Program.cs",
-              "ToolTip": "C:\\Users\\i7 System\\source\\repos\\ase-assignment-ad19am\\MyBooseApp\\MyBooseApp\\Program.cs",
-              "RelativeToolTip": "MyBooseApp\\Program.cs",
+              "Title": "UnitTest1.cs",
+              "DocumentMoniker": "C:\\Users\\i7 System\\source\\repos\\ase-assignment-ad19am\\MyBooseApp\\MyBooseAppTests\\UnitTest1.cs",
+              "RelativeDocumentMoniker": "MyBooseAppTests\\UnitTest1.cs",
+              "ToolTip": "C:\\Users\\i7 System\\source\\repos\\ase-assignment-ad19am\\MyBooseApp\\MyBooseAppTests\\UnitTest1.cs",
+              "RelativeToolTip": "MyBooseAppTests\\UnitTest1.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-13T20:57:48.01Z",
+              "WhenOpened": "2025-11-13T23:38:50.359Z",
               "EditorCaption": ""
             }
           ]

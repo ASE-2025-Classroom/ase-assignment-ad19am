@@ -4,9 +4,14 @@ namespace MyBooseAppFramework
 {
     public class BooseProgramRunner
     {
-        private readonly BoosePen _pen = new BoosePen();
 
-        public BoosePen Pen => _pen;
+        public BoosePen Pen { get; }
+
+        public BooseProgramRunner()
+        {
+            Pen = new BoosePen();
+        }
+
 
         public void Run(string programText)
         {
@@ -31,17 +36,17 @@ namespace MyBooseAppFramework
                     continue;
                 }
 
-                string lower = line.ToLower();
+                string lower = line.ToLowerInvariant();
 
                 if (lower.StartsWith("moveto"))
                 {
                     var (x, y) = ParseTwoInts(line, "moveto", lineNumber);
-                    _pen.MoveTo(x, y);
+                    Pen.MoveTo(x, y);
                 }
                 else if (lower.StartsWith("drawto"))
                 {
                     var (x, y) = ParseTwoInts(line, "drawto", lineNumber);
-                    _pen.DrawTo(x, y);
+                    Pen.DrawTo(x, y);
                 }
                 else
                 {
@@ -50,6 +55,7 @@ namespace MyBooseAppFramework
                 }
             }
         }
+
 
         private static (int x, int y) ParseTwoInts(string line, string command, int lineNumber)
         {

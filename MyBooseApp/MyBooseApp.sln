@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBooseApp", "MyBooseApp\My
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBooseAppFramework", "..\MyBooseAppFramework\MyBooseAppFramework.csproj", "{4689C9C6-C597-4B82-A48A-5E5775CA1C6F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBooseAppTests", "MyBooseAppTests\MyBooseAppTests.csproj", "{CFC9D9E1-78DC-4223-9EF7-44EBD00C23C8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{4689C9C6-C597-4B82-A48A-5E5775CA1C6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4689C9C6-C597-4B82-A48A-5E5775CA1C6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4689C9C6-C597-4B82-A48A-5E5775CA1C6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFC9D9E1-78DC-4223-9EF7-44EBD00C23C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFC9D9E1-78DC-4223-9EF7-44EBD00C23C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFC9D9E1-78DC-4223-9EF7-44EBD00C23C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFC9D9E1-78DC-4223-9EF7-44EBD00C23C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
