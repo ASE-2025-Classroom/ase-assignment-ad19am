@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36518.9 d17.14
+VisualStudioVersion = 17.14.36518.9
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBooseApp", "MyBooseApp\MyBooseApp.csproj", "{8BC249C3-4F40-46C3-B374-FB84E37A4D89}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBooseAppFramework", "..\MyBooseAppFramework\MyBooseAppFramework.csproj", "{4689C9C6-C597-4B82-A48A-5E5775CA1C6F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{8BC249C3-4F40-46C3-B374-FB84E37A4D89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8BC249C3-4F40-46C3-B374-FB84E37A4D89}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8BC249C3-4F40-46C3-B374-FB84E37A4D89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4689C9C6-C597-4B82-A48A-5E5775CA1C6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4689C9C6-C597-4B82-A48A-5E5775CA1C6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4689C9C6-C597-4B82-A48A-5E5775CA1C6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4689C9C6-C597-4B82-A48A-5E5775CA1C6F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

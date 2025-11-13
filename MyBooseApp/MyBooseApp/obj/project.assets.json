@@ -1,11 +1,29 @@
 {
   "version": 3,
   "targets": {
-    "net8.0": {}
+    "net8.0": {
+      "MyBooseAppFramework/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/MyBooseAppFramework.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/MyBooseAppFramework.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "MyBooseAppFramework/1.0.0": {
+      "type": "project",
+      "path": "../../MyBooseAppFramework/MyBooseAppFramework.csproj",
+      "msbuildProject": "../../MyBooseAppFramework/MyBooseAppFramework.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net8.0": []
+    "net8.0": [
+      "MyBooseAppFramework >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\i7 System\\.nuget\\packages\\": {},
@@ -39,7 +57,11 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\i7 System\\Source\\Repos\\ase-assignment-ad19am\\MyBooseAppFramework\\MyBooseAppFramework.csproj": {
+              "projectPath": "C:\\Users\\i7 System\\Source\\Repos\\ase-assignment-ad19am\\MyBooseAppFramework\\MyBooseAppFramework.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
