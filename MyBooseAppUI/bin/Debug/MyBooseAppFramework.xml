@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MyBooseAppFramework</name>
+    </assembly>
+    <members>
+        <member name="T:MyBooseAppFramework.BooseSyntaxException">
+            <summary>
+            Represents an error in the syntax of a BOOSE program
+            (e.g. unknown command or badly formatted coordinates).
+            </summary>
+        </member>
+        <member name="T:MyBooseAppFramework.BooseRuntimeException">
+            <summary>
+            Represents a runtime error that occurs while executing a valid BOOSE program.
+            </summary>
+        </member>
+        <member name="T:MyBooseAppFramework.BoosePen">
+            <summary>
+            Represents the virtual drawing pen used by the BOOSE interpreter.
+            Tracks its current X and Y coordinates.
+            </summary>
+        </member>
+        <member name="P:MyBooseAppFramework.BoosePen.X">
+            <summary>
+            Current X coordinate of the pen.
+            </summary>
+        </member>
+        <member name="P:MyBooseAppFramework.BoosePen.Y">
+            <summary>
+            Current Y coordinate of the pen.
+            </summary>
+        </member>
+        <member name="M:MyBooseAppFramework.BoosePen.#ctor">
+            <summary>
+            Creates a new pen at position (0,0).
+            </summary>
+        </member>
+        <member name="M:MyBooseAppFramework.BoosePen.MoveTo(System.Int32,System.Int32)">
+            <summary>
+            Moves the pen to the specified position without drawing.
+            </summary>
+            <param name="x">X coordinate to move to.</param>
+            <param name="y">Y coordinate to move to.</param>
+        </member>
+        <member name="M:MyBooseAppFramework.BoosePen.DrawTo(System.Int32,System.Int32)">
+            <summary>
+            Draws to the specified position (currently just updates X and Y).
+            </summary>
+            <param name="x">X coordinate to draw to.</param>
+            <param name="y">Y coordinate to draw to.</param>
+        </member>
+        <member name="T:MyBooseAppFramework.BooseProgramRunner">
+            <summary>
+            Executes simple BOOSE programs consisting of moveto, drawto and
+            basic drawing commands. Maintains a single BoosePen instance.
+            </summary>
+        </member>
+        <member name="M:MyBooseAppFramework.BooseProgramRunner.About">
+            <summary>
+            Returns information about this BOOSE library, used for the About display.
+            </summary>
+        </member>
+        <member name="P:MyBooseAppFramework.BooseProgramRunner.Pen">
+            <summary>
+            The pen used by this runner to track the current coordinates.
+            </summary>
+        </member>
+        <member name="P:MyBooseAppFramework.BooseProgramRunner.PenColor">
+            <summary>
+            Current pen colour.
+            </summary>
+        </member>
+        <member name="P:MyBooseAppFramework.BooseProgramRunner.Commands">
+            <summary>
+            List of drawing commands produced while running the program.
+            Each entry is a simple string that the UI can parse and draw.
+            </summary>
+        </member>
+        <member name="M:MyBooseAppFramework.BooseProgramRunner.#ctor">
+            <summary>
+            Creates a new program runner with a fresh pen at (0,0).
+            </summary>
+        </member>
+        <member name="M:MyBooseAppFramework.BooseProgramRunner.Run(System.String)">
+            <summary>
+            Runs a BOOSE program made up of commands (one per line).
+            Supports: moveto, drawto, pencolour, circle, rect, write.
+            </summary>
+            <param name="programText">
+            The text of the program. Lines such as 'moveto 10,10' or 'circle 50'.
+            </param>
+            <exception cref="T:System.ArgumentNullException">Thrown if programText is null.</exception>
+            <exception cref="T:MyBooseAppFramework.BooseSyntaxException">
+            Thrown when the program contains unknown commands or badly formatted coordinates.
+            </exception>
+            <exception cref="T:MyBooseAppFramework.BooseRuntimeException">
+            Thrown when an unexpected runtime error occurs while executing the program.
+            </exception>
+        </member>
+        <member name="M:MyBooseAppFramework.BooseProgramRunner.ParseTwoInts(System.String,System.String,System.Int32)">
+            <summary>
+            Parses two integer coordinates from a command line, e.g. 'moveto 100,200'.
+            </summary>
+            <param name="line">The full line of text from the program.</param>
+            <param name="command">The command name (moveto or drawto).</param>
+            <param name="lineNumber">The current line number for error reporting.</param>
+            <returns>A tuple containing the parsed X and Y coordinates.</returns>
+            <exception cref="T:System.FormatException">
+            Thrown when the coordinates cannot be parsed as two comma-separated integers.
+            </exception>
+        </member>
+    </members>
+</doc>

@@ -8,6 +8,7 @@ C:\Users\i7 System\source\repos\ase-assignment-ad19am\MyBooseAppTests\bin\Debug\
 C:\Users\i7 System\source\repos\ase-assignment-ad19am\MyBooseAppTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
 C:\Users\i7 System\source\repos\ase-assignment-ad19am\MyBooseAppTests\bin\Debug\MyBooseAppFramework.dll
 C:\Users\i7 System\source\repos\ase-assignment-ad19am\MyBooseAppTests\bin\Debug\MyBooseAppFramework.pdb
+C:\Users\i7 System\source\repos\ase-assignment-ad19am\MyBooseAppTests\bin\Debug\MyBooseAppFramework.xml
 C:\Users\i7 System\source\repos\ase-assignment-ad19am\MyBooseAppTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
 C:\Users\i7 System\source\repos\ase-assignment-ad19am\MyBooseAppTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
 C:\Users\i7 System\source\repos\ase-assignment-ad19am\MyBooseAppTests\obj\Debug\MyBooseAppTests.csproj.AssemblyReference.cache
