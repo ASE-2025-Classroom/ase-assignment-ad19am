@@ -12,13 +12,10 @@ namespace MyBooseAppFramework
             Pen = new BoosePen();
         }
 
-
         public void Run(string programText)
         {
             if (programText == null)
-            {
                 throw new ArgumentNullException(nameof(programText));
-            }
 
             var lines = programText.Split(
                 new[] { "\r\n", "\n" },
@@ -32,30 +29,44 @@ namespace MyBooseAppFramework
                 string line = rawLine.Trim();
 
                 if (string.IsNullOrWhiteSpace(line))
-                {
                     continue;
-                }
 
                 string lower = line.ToLowerInvariant();
 
-                if (lower.StartsWith("moveto"))
+                try
                 {
-                    var (x, y) = ParseTwoInts(line, "moveto", lineNumber);
-                    Pen.MoveTo(x, y);
+                    if (lower.StartsWith("moveto"))
+                    {
+                        var (x, y) = ParseTwoInts(line, "moveto", lineNumber);
+                        Pen.MoveTo(x, y);
+                    }
+                    else if (lower.StartsWith("drawto"))
+                    {
+                        var (x, y) = ParseTwoInts(line, "drawto", lineNumber);
+                        Pen.DrawTo(x, y);
+                    }
+                    else
+                    {
+                        throw new BooseSyntaxException(
+                            $"Line {lineNumber}: Unknown command '{line}'.");
+                    }
                 }
-                else if (lower.StartsWith("drawto"))
+                catch (FormatException ex)
                 {
-                    var (x, y) = ParseTwoInts(line, "drawto", lineNumber);
-                    Pen.DrawTo(x, y);
+                    throw new BooseSyntaxException(
+                        $"Line {lineNumber}: {ex.Message}", ex);
                 }
-                else
+                catch (BooseSyntaxException)
                 {
-                    throw new InvalidOperationException(
-                        $"Line {lineNumber}: Unknown command '{line}'.");
+                    throw;
+                }
+                catch (Exception ex)
+                {
+                    throw new BooseRuntimeException(
+                        $"Runtime error on line {lineNumber}: {ex.Message}", ex);
                 }
             }
         }
-
 
         private static (int x, int y) ParseTwoInts(string line, string command, int lineNumber)
         {
