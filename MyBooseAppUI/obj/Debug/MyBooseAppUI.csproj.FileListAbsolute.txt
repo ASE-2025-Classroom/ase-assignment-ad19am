@@ -12,3 +12,18 @@ C:\Users\i7 System\source\repos\ase-assignment-ad19am\MyBooseAppUI\obj\Debug\MyB
 C:\Users\i7 System\source\repos\ase-assignment-ad19am\MyBooseAppUI\obj\Debug\MyBooseA.42BCDF89.Up2Date
 C:\Users\i7 System\source\repos\ase-assignment-ad19am\MyBooseAppUI\obj\Debug\MyBooseAppUI.exe
 C:\Users\i7 System\source\repos\ase-assignment-ad19am\MyBooseAppUI\obj\Debug\MyBooseAppUI.pdb
+C:\Users\aweso\Source\Repos\ase-assignment-ad19am\MyBooseAppUI\bin\Debug\MyBooseAppUI.exe.config
+C:\Users\aweso\Source\Repos\ase-assignment-ad19am\MyBooseAppUI\bin\Debug\MyBooseAppUI.exe
+C:\Users\aweso\Source\Repos\ase-assignment-ad19am\MyBooseAppUI\bin\Debug\MyBooseAppUI.pdb
+C:\Users\aweso\Source\Repos\ase-assignment-ad19am\MyBooseAppUI\bin\Debug\MyBooseAppFramework.dll
+C:\Users\aweso\Source\Repos\ase-assignment-ad19am\MyBooseAppUI\bin\Debug\MyBooseAppFramework.pdb
+C:\Users\aweso\Source\Repos\ase-assignment-ad19am\MyBooseAppUI\bin\Debug\MyBooseAppFramework.xml
+C:\Users\aweso\Source\Repos\ase-assignment-ad19am\MyBooseAppUI\obj\Debug\MyBooseAppUI.csproj.AssemblyReference.cache
+C:\Users\aweso\Source\Repos\ase-assignment-ad19am\MyBooseAppUI\obj\Debug\MyBooseAppUI.exe.config
+C:\Users\aweso\Source\Repos\ase-assignment-ad19am\MyBooseAppUI\obj\Debug\MyBooseAppUI.Form1.resources
+C:\Users\aweso\Source\Repos\ase-assignment-ad19am\MyBooseAppUI\obj\Debug\MyBooseAppUI.Properties.Resources.resources
+C:\Users\aweso\Source\Repos\ase-assignment-ad19am\MyBooseAppUI\obj\Debug\MyBooseAppUI.csproj.GenerateResource.cache
+C:\Users\aweso\Source\Repos\ase-assignment-ad19am\MyBooseAppUI\obj\Debug\MyBooseAppUI.csproj.CoreCompileInputs.cache
+C:\Users\aweso\Source\Repos\ase-assignment-ad19am\MyBooseAppUI\obj\Debug\MyBooseA.42BCDF89.Up2Date
+C:\Users\aweso\Source\Repos\ase-assignment-ad19am\MyBooseAppUI\obj\Debug\MyBooseAppUI.exe
+C:\Users\aweso\Source\Repos\ase-assignment-ad19am\MyBooseAppUI\obj\Debug\MyBooseAppUI.pdb
