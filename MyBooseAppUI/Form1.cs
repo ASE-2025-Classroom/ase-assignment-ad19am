@@ -9,19 +9,27 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MyBooseAppFramework;
 using System.Diagnostics;
+using MyBooseAppFramework.Interfaces;
 
 namespace MyBooseAppUI
 {
-    public partial class Form1 : Form
+    public partial class Form1 : Form, IOutput
     {
         public Form1()
         {
             InitializeComponent();
+            
+            BooseContext.Instance.Output = this;
 
             string aboutText = BooseProgramRunner.About();
             txtOutput.AppendText("ABOUT: " + aboutText + "\r\n");
 
             Debug.WriteLine("ABOUT: " + aboutText);
+        }
+
+        public void WriteLine(string message)
+        {
+            txtOutput.AppendText(message + Environment.NewLine);
         }
 
         private void btnRun_Click(object sender, EventArgs e)
