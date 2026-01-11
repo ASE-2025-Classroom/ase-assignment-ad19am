@@ -121,6 +121,33 @@ namespace MyBooseAppFramework
                 }
             }
         }
+        public double ResolveValue(string token)
+        {
+            if (string.IsNullOrWhiteSpace(token))
+                throw new FormatException("Missing value.");
+
+            token = token.Trim();
+
+            double num;
+            if (double.TryParse(token, out num))
+                return num;
+
+            var vars = BooseContext.Instance.Variables;
+            if (vars == null)
+                throw new InvalidOperationException("VariableStore not initialised.");
+
+            if (token.Contains("[") && token.EndsWith("]"))
+            {
+                int open = token.IndexOf('[');
+                string name = token.Substring(0, open).Trim();
+                string indexStr = token.Substring(open + 1, token.Length - open - 2);
+
+                int index = (int)ResolveValue(indexStr);
+                return vars.GetArrayValue(name, index);
+            }
+
+            return vars.GetScalar(token);
+        }
 
         /// <summary>
         /// Parses two integer coordinates from a command line, e.g. 'moveto 100,200'.
