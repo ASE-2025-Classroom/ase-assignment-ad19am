@@ -11,7 +11,7 @@ namespace MyBooseAppFramework
     /// basic drawing commands. Maintains a single BoosePen instance.
     /// </summary>
     public class BooseProgramRunner : IBooseRuntime
-    {
+    {   
         private readonly ICommandFactory _factory = new CommandFactory();
 
         /// <summary>
@@ -45,6 +45,8 @@ namespace MyBooseAppFramework
         {
             Pen = new BoosePen();
             PenColor = Color.Black;
+
+            BooseContext.Instance.Variables = new MyBooseAppFramework.Stores.VariableStore();
         }
 
         /// <summary>
@@ -84,6 +86,13 @@ namespace MyBooseAppFramework
 
                 if (line.StartsWith("//"))
                     continue;
+
+                if (line.Contains("="))
+                {
+                    var cmd = new MyBooseAppFramework.Commands.SetVariableCommand(line);
+                    cmd.Execute(this);
+                    continue;
+                }
 
                 try
                 {

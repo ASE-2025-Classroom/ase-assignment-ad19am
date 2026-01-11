@@ -155,5 +155,10 @@
             Command to write text at the current pen position.
             </summary>
         </member>
+        <member name="T:MyBooseAppFramework.Stores.VariableStore">
+            <summary>
+            Stores scalar and array variables.
+            </summary>
+        </member>
     </members>
 </doc>

@@ -16,6 +16,8 @@ C:\Users\i7 System\source\repos\ase-assignment-ad19am\MyBooseAppTests\obj\Debug\
 C:\Users\i7 System\source\repos\ase-assignment-ad19am\MyBooseAppTests\obj\Debug\MyBooseA.3F358C01.Up2Date
 C:\Users\i7 System\source\repos\ase-assignment-ad19am\MyBooseAppTests\obj\Debug\MyBooseAppTests.dll
 C:\Users\i7 System\source\repos\ase-assignment-ad19am\MyBooseAppTests\obj\Debug\MyBooseAppTests.pdb
+C:\Users\aweso\source\repos\ase-assignment-ad19am\MyBooseAppTests\obj\Debug\MyBooseAppTests.csproj.AssemblyReference.cache
+C:\Users\aweso\source\repos\ase-assignment-ad19am\MyBooseAppTests\obj\Debug\MyBooseAppTests.csproj.CoreCompileInputs.cache
 C:\Users\aweso\source\repos\ase-assignment-ad19am\MyBooseAppTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
 C:\Users\aweso\source\repos\ase-assignment-ad19am\MyBooseAppTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
 C:\Users\aweso\source\repos\ase-assignment-ad19am\MyBooseAppTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
@@ -29,8 +31,6 @@ C:\Users\aweso\source\repos\ase-assignment-ad19am\MyBooseAppTests\bin\Debug\MyBo
 C:\Users\aweso\source\repos\ase-assignment-ad19am\MyBooseAppTests\bin\Debug\MyBooseAppFramework.xml
 C:\Users\aweso\source\repos\ase-assignment-ad19am\MyBooseAppTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
 C:\Users\aweso\source\repos\ase-assignment-ad19am\MyBooseAppTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
-C:\Users\aweso\source\repos\ase-assignment-ad19am\MyBooseAppTests\obj\Debug\MyBooseAppTests.csproj.AssemblyReference.cache
-C:\Users\aweso\source\repos\ase-assignment-ad19am\MyBooseAppTests\obj\Debug\MyBooseAppTests.csproj.CoreCompileInputs.cache
 C:\Users\aweso\source\repos\ase-assignment-ad19am\MyBooseAppTests\obj\Debug\MyBooseA.3F358C01.Up2Date
 C:\Users\aweso\source\repos\ase-assignment-ad19am\MyBooseAppTests\obj\Debug\MyBooseAppTests.dll
 C:\Users\aweso\source\repos\ase-assignment-ad19am\MyBooseAppTests\obj\Debug\MyBooseAppTests.pdb

@@ -1,3 +1,8 @@
+C:\Users\aweso\source\repos\ase-assignment-ad19am\MyBooseApp\MyBooseApp\obj\Debug\net8.0\MyBooseApp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\aweso\source\repos\ase-assignment-ad19am\MyBooseApp\MyBooseApp\obj\Debug\net8.0\MyBooseApp.AssemblyInfoInputs.cache
+C:\Users\aweso\source\repos\ase-assignment-ad19am\MyBooseApp\MyBooseApp\obj\Debug\net8.0\MyBooseApp.AssemblyInfo.cs
+C:\Users\aweso\source\repos\ase-assignment-ad19am\MyBooseApp\MyBooseApp\obj\Debug\net8.0\MyBooseApp.csproj.CoreCompileInputs.cache
+C:\Users\aweso\source\repos\ase-assignment-ad19am\MyBooseApp\MyBooseApp\obj\Debug\net8.0\MyBooseApp.sourcelink.json
 C:\Users\aweso\source\repos\ase-assignment-ad19am\MyBooseApp\MyBooseApp\bin\Debug\net8.0\MyBooseApp.exe
 C:\Users\aweso\source\repos\ase-assignment-ad19am\MyBooseApp\MyBooseApp\bin\Debug\net8.0\MyBooseApp.deps.json
 C:\Users\aweso\source\repos\ase-assignment-ad19am\MyBooseApp\MyBooseApp\bin\Debug\net8.0\MyBooseApp.runtimeconfig.json
@@ -7,11 +12,6 @@ C:\Users\aweso\source\repos\ase-assignment-ad19am\MyBooseApp\MyBooseApp\bin\Debu
 C:\Users\aweso\source\repos\ase-assignment-ad19am\MyBooseApp\MyBooseApp\bin\Debug\net8.0\MyBooseAppFramework.pdb
 C:\Users\aweso\source\repos\ase-assignment-ad19am\MyBooseApp\MyBooseApp\bin\Debug\net8.0\MyBooseAppFramework.xml
 C:\Users\aweso\source\repos\ase-assignment-ad19am\MyBooseApp\MyBooseApp\obj\Debug\net8.0\MyBooseApp.csproj.AssemblyReference.cache
-C:\Users\aweso\source\repos\ase-assignment-ad19am\MyBooseApp\MyBooseApp\obj\Debug\net8.0\MyBooseApp.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\aweso\source\repos\ase-assignment-ad19am\MyBooseApp\MyBooseApp\obj\Debug\net8.0\MyBooseApp.AssemblyInfoInputs.cache
-C:\Users\aweso\source\repos\ase-assignment-ad19am\MyBooseApp\MyBooseApp\obj\Debug\net8.0\MyBooseApp.AssemblyInfo.cs
-C:\Users\aweso\source\repos\ase-assignment-ad19am\MyBooseApp\MyBooseApp\obj\Debug\net8.0\MyBooseApp.csproj.CoreCompileInputs.cache
-C:\Users\aweso\source\repos\ase-assignment-ad19am\MyBooseApp\MyBooseApp\obj\Debug\net8.0\MyBooseApp.sourcelink.json
 C:\Users\aweso\source\repos\ase-assignment-ad19am\MyBooseApp\MyBooseApp\obj\Debug\net8.0\MyBooseApp.csproj.Up2Date
 C:\Users\aweso\source\repos\ase-assignment-ad19am\MyBooseApp\MyBooseApp\obj\Debug\net8.0\MyBooseApp.dll
 C:\Users\aweso\source\repos\ase-assignment-ad19am\MyBooseApp\MyBooseApp\obj\Debug\net8.0\refint\MyBooseApp.dll

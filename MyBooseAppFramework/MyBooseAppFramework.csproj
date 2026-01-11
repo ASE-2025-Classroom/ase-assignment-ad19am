@@ -52,6 +52,7 @@
     <Compile Include="Commands\MoveToCommands.cs" />
     <Compile Include="Commands\PenColourCommand.cs" />
     <Compile Include="Commands\RectCommand.cs" />
+    <Compile Include="Commands\SetVariableCommand.cs" />
     <Compile Include="Commands\WriteCommand.cs" />
     <Compile Include="Factories\CommandFactory.cs" />
     <Compile Include="Interfaces\IBooseRuntime.cs" />

@@ -9,8 +9,11 @@ namespace MyBooseAppFramework.Stores
     /// </summary>
     public class VariableStore : IVariableStore
     {
-        private readonly Stack<Dictionary<string, double>> _scalars = new();
-        private readonly Stack<Dictionary<string, double[]>> _arrays = new();
+        private readonly Stack<Dictionary<string, double>> _scalars =
+            new Stack<Dictionary<string, double>>();
+
+        private readonly Stack<Dictionary<string, double[]>> _arrays =
+            new Stack<Dictionary<string, double[]>>();
 
         public VariableStore()
         {
