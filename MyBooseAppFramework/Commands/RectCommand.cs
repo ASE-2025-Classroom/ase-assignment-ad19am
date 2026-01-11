@@ -17,11 +17,13 @@ namespace MyBooseAppFramework.Commands
 
         public void Execute(IBooseRuntime runtime)
         {
-            int width = int.Parse(_args[0]);
-            int height = int.Parse(_args[1]);
+            var runner = (BooseProgramRunner)runtime;
+
+            int w = (int)runner.ResolveValue(_args[0]);
+            int h = (int)runner.ResolveValue(_args[1]);
 
             runtime.Commands.Add(
-                $"rect {runtime.Pen.X},{runtime.Pen.Y},{width},{height},{runtime.PenColor.R},{runtime.PenColor.G},{runtime.PenColor.B}");
+                $"rect {runtime.Pen.X},{runtime.Pen.Y},{w},{h},{runtime.PenColor.R},{runtime.PenColor.G},{runtime.PenColor.B}");
         }
     }
 }

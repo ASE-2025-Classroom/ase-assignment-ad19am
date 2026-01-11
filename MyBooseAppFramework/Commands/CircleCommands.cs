@@ -14,7 +14,9 @@ namespace MyBooseAppFramework.Commands
 
         public void Execute(IBooseRuntime runtime)
         {
-            int radius = int.Parse(_args[0]);
+            var runner = (BooseProgramRunner)runtime;
+
+            int radius = (int)runner.ResolveValue(_args[0]);
 
             runtime.Commands.Add(
                 $"circle {runtime.Pen.X},{runtime.Pen.Y},{radius},{runtime.PenColor.R},{runtime.PenColor.G},{runtime.PenColor.B}");

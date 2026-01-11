@@ -17,8 +17,10 @@ namespace MyBooseAppFramework.Commands
 
         public void Execute(IBooseRuntime runtime)
         {
-            int x = int.Parse(_args[0]);
-            int y = int.Parse(_args[1]);
+            var runner = (BooseProgramRunner)runtime;
+
+            int x = (int)runner.ResolveValue(_args[0]);
+            int y = (int)runner.ResolveValue(_args[1]);
 
             runtime.Pen.DrawTo(x, y);
 
