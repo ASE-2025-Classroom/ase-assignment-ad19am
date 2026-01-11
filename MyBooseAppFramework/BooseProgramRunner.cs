@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using MyBooseAppFramework.Interfaces;
+using MyBooseAppFramework.Factories;
 
 namespace MyBooseAppFramework
 {
@@ -8,8 +10,10 @@ namespace MyBooseAppFramework
     /// Executes simple BOOSE programs consisting of moveto, drawto and
     /// basic drawing commands. Maintains a single BoosePen instance.
     /// </summary>
-    public class BooseProgramRunner
+    public class BooseProgramRunner : IBooseRuntime
     {
+        private readonly ICommandFactory _factory = new CommandFactory();
+
         /// <summary>
         /// Returns information about this BOOSE library, used for the About display.
         /// </summary>
@@ -26,7 +30,7 @@ namespace MyBooseAppFramework
         /// <summary>
         /// Current pen colour.
         /// </summary>
-        public Color PenColor { get; private set; } = Color.Black;
+        public Color PenColor { get; set; } = Color.Black;
 
         /// <summary>
         /// List of drawing commands produced while running the program.
@@ -78,73 +82,24 @@ namespace MyBooseAppFramework
                 if (string.IsNullOrWhiteSpace(line))
                     continue;
 
-                string lower = line.ToLowerInvariant();
+                if (line.StartsWith("//"))
+                    continue;
 
                 try
                 {
-                    if (lower.StartsWith("moveto"))
-                    {
-                        var (x, y) = ParseTwoInts(line, "moveto", lineNumber);
-                        Pen.MoveTo(x, y);
-                    }
-                    else if (lower.StartsWith("drawto"))
-                    {
-                        var (x, y) = ParseTwoInts(line, "drawto", lineNumber);
-                        Pen.DrawTo(x, y);
+                    var firstSpace = line.IndexOf(' ');
+                    string keyword = firstSpace < 0 ? line : line.Substring(0, firstSpace);
+                    string argString = firstSpace < 0 ? "" : line.Substring(firstSpace + 1);
 
-                        Commands.Add($"drawto {x},{y},{PenColor.R},{PenColor.G},{PenColor.B}");
-                    }
-                    else if (lower.StartsWith("pencolour"))
-                    {
-                        var args = line.Substring("pencolour".Length).Trim().Split(',');
-                        if (args.Length != 3)
-                            throw new FormatException("pencolour requires three comma-separated numbers (r,g,b).");
+                    string[] args = argString.Split(new[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
-                        int r = int.Parse(args[0]);
-                        int g = int.Parse(args[1]);
-                        int b = int.Parse(args[2]);
+                    ICommand cmd = _factory.Create(keyword, args);
 
-                        PenColor = Color.FromArgb(r, g, b);
-                        Commands.Add($"pencolour {r},{g},{b}");
-                    }
-                    else if (lower.StartsWith("circle"))
-                    {
-                        string arg = line.Substring("circle".Length).Trim();
-                        int radius = int.Parse(arg);
-
-                        Commands.Add(
-                            $"circle {Pen.X},{Pen.Y},{radius},{PenColor.R},{PenColor.G},{PenColor.B}");
-                    }
-                    else if (lower.StartsWith("rect"))
-                    {
-                        var args = line.Substring("rect".Length).Trim().Split(',');
-                        if (args.Length != 2)
-                            throw new FormatException("rect requires two comma-separated numbers (width,height).");
-
-                        int w = int.Parse(args[0]);
-                        int h = int.Parse(args[1]);
-
-                        Commands.Add(
-                            $"rect {Pen.X},{Pen.Y},{w},{h},{PenColor.R},{PenColor.G},{PenColor.B}");
-                    }
-                    else if (lower.StartsWith("write"))
-                    {
-                        string text = line.Substring("write".Length).Trim();
-                        text = text.Trim('"');
-
-                        Commands.Add(
-                            $"write {Pen.X},{Pen.Y},\"{text}\",{PenColor.R},{PenColor.G},{PenColor.B}");
-                    }
-                    else
-                    {
-                        throw new BooseSyntaxException(
-                            $"Line {lineNumber}: Unknown command '{line}'.");
-                    }
+                    cmd.Execute();
                 }
                 catch (FormatException ex)
                 {
-                    throw new BooseSyntaxException(
-                        $"Line {lineNumber}: {ex.Message}", ex);
+                    throw new BooseSyntaxException($"Line {lineNumber}: {ex.Message}", ex);
                 }
                 catch (BooseSyntaxException)
                 {
@@ -152,11 +107,9 @@ namespace MyBooseAppFramework
                 }
                 catch (Exception ex)
                 {
-                    throw new BooseRuntimeException(
-                        $"Runtime error on line {lineNumber}: {ex.Message}", ex);
+                    throw new BooseRuntimeException($"Runtime error on line {lineNumber}: {ex.Message}", ex);
                 }
             }
-        }
 
         /// <summary>
         /// Parses two integer coordinates from a command line, e.g. 'moveto 100,200'.

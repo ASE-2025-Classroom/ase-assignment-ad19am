@@ -18,7 +18,7 @@ namespace MyBooseAppFramework
         public IVariableStore Variables { get; set; }
 
         /// <summary>
-        /// Output taregt.
+        /// Output target.
         /// </summary>
         public IOutput Output { get; set; }
     }

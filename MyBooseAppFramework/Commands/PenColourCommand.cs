@@ -5,16 +5,16 @@ namespace MyBooseAppFramework.Commands
     /// <summary>
     /// Command to change pen colour.
     /// </summary>
-    public class PenColourCommand : ICommand
+    public class PenColorCommand : ICommand
     {
         private readonly string[] _args;
-        public string Name => "pencolour";
+        public string Name => "pencolor";
 
-        public PenColourCommand(string[] args) => _args = args;
+        public PenColorCommand(string[] args) => _args = args;
 
         public void Execute()
         {
-            BooseContext.Instance.Output?.WriteLine($"Executing pencolour {string.Join(",", _args)}");
+            BooseContext.Instance.Output?.WriteLine($"Executing pencolor {string.Join(",", _args)}");
 
         }
     }

@@ -25,9 +25,9 @@ namespace MyBooseAppFramework.Factories
                 case "circle":
                     return new Commands.CircleCommand(args);
 
-                case "pencolour":
                 case "pencolor":
-                    return new Commands.PenColourCommand(args);
+                case "pencolor":
+                    return new Commands.PenColorCommand(args);
 
                 case "write":
                     return new Commands.WriteCommand(args);

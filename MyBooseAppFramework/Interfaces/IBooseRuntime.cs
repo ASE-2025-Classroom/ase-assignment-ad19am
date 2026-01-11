@@ -6,7 +6,7 @@ namespace MyBooseAppFramework.Interfaces
     public interface IBooseRuntime
     {
         BoosePen Pen { get; }
-        Color PenColour { get; set; }
+        Colour PenColor { get; set; }
         List<string> Commands { get; }
     }
 }
