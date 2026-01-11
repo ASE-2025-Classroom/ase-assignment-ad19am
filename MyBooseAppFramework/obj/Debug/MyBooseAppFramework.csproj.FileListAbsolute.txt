@@ -1,0 +1,7 @@
+C:\Users\aweso\source\repos\ase-assignment-ad19am\MyBooseAppFramework\bin\Debug\MyBooseAppFramework.xml
+C:\Users\aweso\source\repos\ase-assignment-ad19am\MyBooseAppFramework\bin\Debug\MyBooseAppFramework.dll
+C:\Users\aweso\source\repos\ase-assignment-ad19am\MyBooseAppFramework\bin\Debug\MyBooseAppFramework.pdb
+C:\Users\aweso\source\repos\ase-assignment-ad19am\MyBooseAppFramework\obj\Debug\MyBooseAppFramework.csproj.AssemblyReference.cache
+C:\Users\aweso\source\repos\ase-assignment-ad19am\MyBooseAppFramework\obj\Debug\MyBooseAppFramework.csproj.CoreCompileInputs.cache
+C:\Users\aweso\source\repos\ase-assignment-ad19am\MyBooseAppFramework\obj\Debug\MyBooseAppFramework.dll
+C:\Users\aweso\source\repos\ase-assignment-ad19am\MyBooseAppFramework\obj\Debug\MyBooseAppFramework.pdb

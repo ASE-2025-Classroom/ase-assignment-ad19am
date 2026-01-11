@@ -32,11 +32,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\aweso\\Source\\Repos\\ase-assignment-ad19am\\MyBooseApp\\MyBooseApp\\MyBooseApp.csproj",
+      "projectUniqueName": "C:\\Users\\aweso\\source\\repos\\ase-assignment-ad19am\\MyBooseApp\\MyBooseApp\\MyBooseApp.csproj",
       "projectName": "MyBooseApp",
-      "projectPath": "C:\\Users\\aweso\\Source\\Repos\\ase-assignment-ad19am\\MyBooseApp\\MyBooseApp\\MyBooseApp.csproj",
+      "projectPath": "C:\\Users\\aweso\\source\\repos\\ase-assignment-ad19am\\MyBooseApp\\MyBooseApp\\MyBooseApp.csproj",
       "packagesPath": "C:\\Users\\aweso\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\aweso\\Source\\Repos\\ase-assignment-ad19am\\MyBooseApp\\MyBooseApp\\obj\\",
+      "outputPath": "C:\\Users\\aweso\\source\\repos\\ase-assignment-ad19am\\MyBooseApp\\MyBooseApp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -57,8 +57,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\aweso\\Source\\Repos\\ase-assignment-ad19am\\MyBooseAppFramework\\MyBooseAppFramework.csproj": {
-              "projectPath": "C:\\Users\\aweso\\Source\\Repos\\ase-assignment-ad19am\\MyBooseAppFramework\\MyBooseAppFramework.csproj"
+            "C:\\Users\\aweso\\source\\repos\\ase-assignment-ad19am\\MyBooseAppFramework\\MyBooseAppFramework.csproj": {
+              "projectPath": "C:\\Users\\aweso\\source\\repos\\ase-assignment-ad19am\\MyBooseAppFramework\\MyBooseAppFramework.csproj"
             }
           }
         }

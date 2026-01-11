@@ -1,12 +1,9 @@
-using MyBooseAppFramework.Interfaces;
 using System;
-using System.Windows.Input;
+using MyBooseAppFramework.Interfaces;
+using MyBooseAppFramework.Commands;
 
 namespace MyBooseAppFramework.Factories
 {
-    /// <summary>
-    /// Factory pattern - creates ICommand instances from BOOSE keywords.
-    /// </summary>
     public class CommandFactory : ICommandFactory
     {
         public ICommand Create(string keyword, string[] args)
@@ -15,22 +12,24 @@ namespace MyBooseAppFramework.Factories
 
             switch (keyword)
             {
-
                 case "moveto":
-                    return new Commands.MoveToCommand(args);
+                    return new MoveToCommand(args);
 
-                case "rect":
-                    return new Commands.RectCommand(args);
+                case "drawto":
+                    return new DrawToCommand(args); // only if you created DrawToCommand
 
                 case "circle":
-                    return new Commands.CircleCommand(args);
+                    return new CircleCommand(args);
 
+                case "rect":
+                    return new RectCommand(args);
+
+                case "pencolour":
                 case "pencolor":
-                case "pencolor":
-                    return new Commands.PenColorCommand(args);
+                    return new PenColourCommand(args);
 
                 case "write":
-                    return new Commands.WriteCommand(args);
+                    return new WriteCommand(args);
 
                 default:
                     throw new ArgumentException($"Unknown command: {keyword}");

@@ -1,8 +1,8 @@
-﻿using System;
+﻿using MyBooseAppFramework.Interfaces;
+using MyBooseAppFramework.Factories;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
-using MyBooseAppFramework.Interfaces;
-using MyBooseAppFramework.Factories;
 
 namespace MyBooseAppFramework
 {
@@ -87,15 +87,16 @@ namespace MyBooseAppFramework
 
                 try
                 {
-                    var firstSpace = line.IndexOf(' ');
+                    int firstSpace = line.IndexOf(' ');
                     string keyword = firstSpace < 0 ? line : line.Substring(0, firstSpace);
                     string argString = firstSpace < 0 ? "" : line.Substring(firstSpace + 1);
 
-                    string[] args = argString.Split(new[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                    string[] args = argString.Split(
+                        new[] { ',', ' ' },
+                        StringSplitOptions.RemoveEmptyEntries);
 
-                    ICommand cmd = _factory.Create(keyword, args);
-
-                    cmd.Execute();
+                    MyBooseAppFramework.Interfaces.ICommand cmd = _factory.Create(keyword, args);
+                    cmd.Execute(this);
                 }
                 catch (FormatException ex)
                 {
@@ -110,6 +111,7 @@ namespace MyBooseAppFramework
                     throw new BooseRuntimeException($"Runtime error on line {lineNumber}: {ex.Message}", ex);
                 }
             }
+        }
 
         /// <summary>
         /// Parses two integer coordinates from a command line, e.g. 'moveto 100,200'.

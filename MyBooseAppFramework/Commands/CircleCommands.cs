@@ -3,7 +3,7 @@ using MyBooseAppFramework.Interfaces;
 namespace MyBooseAppFramework.Commands
 {
     /// <summary>
-    /// Command to draw a circle.
+    /// Command to draw a circle at the current pen position.
     /// </summary>
     public class CircleCommand : ICommand
     {
@@ -12,10 +12,12 @@ namespace MyBooseAppFramework.Commands
 
         public CircleCommand(string[] args) => _args = args;
 
-        public void Execute()
+        public void Execute(IBooseRuntime runtime)
         {
-            BooseContext.Instance.Output?.WriteLine($"Executing circle {string.Join(",", _args)}");
+            int radius = int.Parse(_args[0]);
 
+            runtime.Commands.Add(
+                $"circle {runtime.Pen.X},{runtime.Pen.Y},{radius},{runtime.PenColor.R},{runtime.PenColor.G},{runtime.PenColor.B}");
         }
     }
 }

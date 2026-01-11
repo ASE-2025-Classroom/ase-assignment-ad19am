@@ -43,10 +43,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BooseContext.cs" />
     <Compile Include="BooseExceptions.cs" />
     <Compile Include="BoosePen.cs" />
     <Compile Include="BooseProgramRunner.cs" />
+    <Compile Include="Commands\CircleCommands.cs" />
+    <Compile Include="Commands\DrawToCommand.cs" />
+    <Compile Include="Commands\MoveToCommands.cs" />
+    <Compile Include="Commands\PenColourCommand.cs" />
+    <Compile Include="Commands\RectCommand.cs" />
+    <Compile Include="Commands\WriteCommand.cs" />
+    <Compile Include="Factories\CommandFactory.cs" />
+    <Compile Include="Interfaces\IBooseRuntime.cs" />
+    <Compile Include="Interfaces\ICommand.cs" />
+    <Compile Include="Interfaces\ICommandFactory.cs" />
+    <Compile Include="Interfaces\IOutput.cs" />
+    <Compile Include="Interfaces\IVariableStore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Stores\VariableStore.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,21 +1,30 @@
 using MyBooseAppFramework.Interfaces;
+using System.Drawing;
 
 namespace MyBooseAppFramework.Commands
 {
     /// <summary>
     /// Command to change pen colour.
     /// </summary>
-    public class PenColorCommand : ICommand
+    public class PenColourCommand : ICommand
     {
         private readonly string[] _args;
-        public string Name => "pencolor";
+        public string Name => "pencolour";
 
-        public PenColorCommand(string[] args) => _args = args;
-
-        public void Execute()
+        public PenColourCommand(string[] args)
         {
-            BooseContext.Instance.Output?.WriteLine($"Executing pencolor {string.Join(",", _args)}");
+            _args = args;
+        }
 
+        public void Execute(IBooseRuntime runtime)
+        {
+            int r = int.Parse(_args[0]);
+            int g = int.Parse(_args[1]);
+            int b = int.Parse(_args[2]);
+
+            runtime.PenColor = Color.FromArgb(r, g, b);
+
+            runtime.Commands.Add($"pencolour {r},{g},{b}");
         }
     }
 }
