@@ -3,9 +3,15 @@ using MyBooseAppFramework;
 
 namespace MyBooseAppTests
 {
+    /// <summary>
+    /// Unit tests for BoosePen.
+    /// </summary>
     [TestClass]
     public class BoosePenTests
     {
+        /// <summary>
+        /// Verifies that MoveTo updates the X and Y coordinates without drawing.
+        /// </summary>
         [TestMethod]
         public void MoveTo_UpdatesPenPosition()
         {
@@ -17,6 +23,9 @@ namespace MyBooseAppTests
             Assert.AreEqual(200, pen.Y);
         }
 
+        /// <summary>
+        /// Verifies that DrawTo updates the X and Y coordinates.
+        /// </summary>
         [TestMethod]
         public void DrawTo_UpdatesPenPosition()
         {
@@ -27,21 +36,6 @@ namespace MyBooseAppTests
 
             Assert.AreEqual(50, pen.X);
             Assert.AreEqual(75, pen.Y);
-        }
-
-        [TestMethod]
-        public void Run_MultilineProgram_LeavesPenAtLastPosition()
-        {
-            var runner = new BooseProgramRunner();
-
-            string program = @"moveto 10,10
-drawto 20,20
-moveto 5,5";
-
-            runner.Run(program);
-
-            Assert.AreEqual(5, runner.Pen.X);
-            Assert.AreEqual(5, runner.Pen.Y);
         }
     }
 }

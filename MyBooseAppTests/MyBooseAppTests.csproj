@@ -49,8 +49,19 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BooseContextTests.cs" />
+    <Compile Include="BooseProgramRunnerTests.cs" />
+    <Compile Include="CircleCommandTests.cs" />
+    <Compile Include="CommandFactoryTests.cs" />
+    <Compile Include="DrawToCommandTests.cs" />
+    <Compile Include="MoveToCommandTests.cs" />
+    <Compile Include="PenColourCommandTests.cs" />
+    <Compile Include="RectCommandTests.cs" />
+    <Compile Include="SetVariableCommandTests.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VariableStoreTests.cs" />
+    <Compile Include="WriteCommandTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
