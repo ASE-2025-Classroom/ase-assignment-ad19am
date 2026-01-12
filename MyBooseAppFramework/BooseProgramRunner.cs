@@ -70,46 +70,263 @@ namespace MyBooseAppFramework
 
             Commands.Clear();
 
-            var lines = programText.Split(
-                new[] { "\r\n", "\n" },
-                StringSplitOptions.RemoveEmptyEntries);
+            var rawLines = programText.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None);
+            var lines = new List<string>();
 
-            int lineNumber = 0;
-
-            foreach (var rawLine in lines)
+            foreach (var rl in rawLines)
             {
-                lineNumber++;
-                string line = rawLine.Trim();
+                var ln = rl.Trim();
+                if (string.IsNullOrWhiteSpace(ln)) continue;
+                if (ln.StartsWith("//")) continue;
+                lines.Add(ln);
+            }
 
-                if (string.IsNullOrWhiteSpace(line))
-                    continue;
+            var ifStack = new Stack<bool>();
+            var whileStack = new Stack<int>();
+            var forStack = new Stack<(string varName, double end, double step, int forLineIndex)>();
 
-                if (line.StartsWith("//"))
-                    continue;
+            int pc = 0;
+            int safety = 0;
 
-                if (line.Contains("="))
-                {
-                    var cmd = new MyBooseAppFramework.Commands.SetVariableCommand(line);
-                    cmd.Execute(this);
-                    continue;
-                }
+            while (pc < lines.Count)
+            {
+                safety++;
+                if (safety > 200000) throw new BooseRuntimeException("Safety stop: possible infinite loop.");
+
+                string line = lines[pc];
 
                 try
                 {
+                    if (line.StartsWith("if ", StringComparison.OrdinalIgnoreCase))
+                    {
+                        string cond = line.Substring(3).Trim();
+                        bool ok = EvaluateCondition(cond);
+                        ifStack.Push(ok);
+
+                        if (!ok)
+                        {
+                            int depth = 0;
+                            int j = pc + 1;
+                            for (; j < lines.Count; j++)
+                            {
+                                string t = lines[j];
+                                if (t.StartsWith("if ", StringComparison.OrdinalIgnoreCase)) depth++;
+                                else if (t.Equals("endif", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    if (depth == 0) break;
+                                    depth--;
+                                }
+                                else if (t.Equals("else", StringComparison.OrdinalIgnoreCase) && depth == 0)
+                                {
+                                    break;
+                                }
+                            }
+                            pc = j;
+                        }
+                        pc++;
+                        continue;
+                    }
+
+                    if (line.Equals("else", StringComparison.OrdinalIgnoreCase))
+                    {
+                        if (ifStack.Count == 0) throw new BooseSyntaxException("else without matching if");
+
+                        bool ifWasTrue = ifStack.Peek();
+                        if (ifWasTrue)
+                        {
+                            int depth = 0;
+                            int j = pc + 1;
+                            for (; j < lines.Count; j++)
+                            {
+                                string t = lines[j];
+                                if (t.StartsWith("if ", StringComparison.OrdinalIgnoreCase)) depth++;
+                                else if (t.Equals("endif", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    if (depth == 0) break;
+                                    depth--;
+                                }
+                            }
+                            pc = j + 1;
+                            ifStack.Pop();
+                            continue;
+                        }
+                        else
+                        {
+                            pc++;
+                            continue;
+                        }
+                    }
+
+                    if (line.Equals("endif", StringComparison.OrdinalIgnoreCase))
+                    {
+                        if (ifStack.Count == 0) throw new BooseSyntaxException("endif without matching if");
+                        ifStack.Pop();
+                        pc++;
+                        continue;
+                    }
+
+                    if (line.StartsWith("while ", StringComparison.OrdinalIgnoreCase))
+                    {
+                        string cond = line.Substring(6).Trim();
+                        bool ok = EvaluateCondition(cond);
+
+                        if (!ok)
+                        {
+                            int depth = 0;
+                            int j = pc + 1;
+                            for (; j < lines.Count; j++)
+                            {
+                                string t = lines[j];
+                                if (t.StartsWith("while ", StringComparison.OrdinalIgnoreCase)) depth++;
+                                else if (t.Equals("endwhile", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    if (depth == 0) break;
+                                    depth--;
+                                }
+                            }
+                            pc = j + 1;
+                        }
+                        else
+                        {
+                            whileStack.Push(pc);
+                            pc++;
+                        }
+                        continue;
+                    }
+
+                    if (line.Equals("endwhile", StringComparison.OrdinalIgnoreCase))
+                    {
+                        if (whileStack.Count == 0) throw new BooseSyntaxException("endwhile without matching while");
+
+                        int whileLineIndex = whileStack.Peek();
+                        string whileLine = lines[whileLineIndex];
+                        string cond = whileLine.Substring(6).Trim();
+
+                        if (EvaluateCondition(cond))
+                        {
+                            pc = whileLineIndex + 1;
+                        }
+                        else
+                        {
+                            whileStack.Pop();
+                            pc++;
+                        }
+                        continue;
+                    }
+
+                    if (line.StartsWith("for ", StringComparison.OrdinalIgnoreCase))
+                    {
+                        string rest = line.Substring(4).Trim();
+
+                        var eqParts = rest.Split(new[] { '=' }, 2);
+                        if (eqParts.Length != 2) throw new FormatException("for syntax must be: for i = start to end");
+
+                        string varName = eqParts[0].Trim();
+                        string rhs = eqParts[1].Trim();
+
+                        var toParts = rhs.Split(new[] { "to" }, StringSplitOptions.RemoveEmptyEntries);
+                        if (toParts.Length < 2) throw new FormatException("for syntax must include: to");
+
+                        string startExpr = toParts[0].Trim();
+                        string endAndStep = toParts[1].Trim();
+
+                        double start = ResolveValue(startExpr);
+
+                        double step = 1;
+                        double end;
+
+                        int stepPos = endAndStep.IndexOf("step", StringComparison.OrdinalIgnoreCase);
+                        if (stepPos >= 0)
+                        {
+                            string endExpr = endAndStep.Substring(0, stepPos).Trim();
+                            string stepExpr = endAndStep.Substring(stepPos + 4).Trim();
+                            end = ResolveValue(endExpr);
+                            step = ResolveValue(stepExpr);
+                            if (Math.Abs(step) < 0.000001) throw new FormatException("for step cannot be 0");
+                        }
+                        else
+                        {
+                            end = ResolveValue(endAndStep);
+                        }
+
+                        BooseContext.Instance.Variables.SetScalar(varName, start);
+
+                        bool run =
+                            (step > 0 && start <= end) ||
+                            (step < 0 && start >= end);
+
+                        if (!run)
+                        {
+                            int depth = 0;
+                            int j = pc + 1;
+                            for (; j < lines.Count; j++)
+                            {
+                                string t = lines[j];
+                                if (t.StartsWith("for ", StringComparison.OrdinalIgnoreCase)) depth++;
+                                else if (t.Equals("endfor", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    if (depth == 0) break;
+                                    depth--;
+                                }
+                            }
+                            pc = j + 1;
+                        }
+                        else
+                        {
+                            forStack.Push((varName, end, step, pc));
+                            pc++;
+                        }
+                        continue;
+                    }
+
+                    if (line.Equals("endfor", StringComparison.OrdinalIgnoreCase))
+                    {
+                        if (forStack.Count == 0) throw new BooseSyntaxException("endfor without matching for");
+
+                        var frame = forStack.Peek();
+                        double current = BooseContext.Instance.Variables.GetScalar(frame.varName);
+                        double next = current + frame.step;
+
+                        BooseContext.Instance.Variables.SetScalar(frame.varName, next);
+
+                        bool keepGoing =
+                            (frame.step > 0 && next <= frame.end) ||
+                            (frame.step < 0 && next >= frame.end);
+
+                        if (keepGoing)
+                        {
+                            pc = frame.forLineIndex + 1;
+                        }
+                        else
+                        {
+                            forStack.Pop();
+                            pc++;
+                        }
+                        continue;
+                    }
+
+                    if (IsAssignmentLine(line))
+                    {
+                        var varCmd = new MyBooseAppFramework.Commands.SetVariableCommand(line);
+                        varCmd.Execute(this);
+                        pc++;
+                        continue;
+                    }
+
                     int firstSpace = line.IndexOf(' ');
                     string keyword = firstSpace < 0 ? line : line.Substring(0, firstSpace);
                     string argString = firstSpace < 0 ? "" : line.Substring(firstSpace + 1);
 
-                    string[] args = argString.Split(
-                        new[] { ',', ' ' },
-                        StringSplitOptions.RemoveEmptyEntries);
+                    string[] args = argString.Split(new[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
                     MyBooseAppFramework.Interfaces.ICommand cmd = _factory.Create(keyword, args);
                     cmd.Execute(this);
+
+                    pc++;
                 }
                 catch (FormatException ex)
                 {
-                    throw new BooseSyntaxException($"Line {lineNumber}: {ex.Message}", ex);
+                    throw new BooseSyntaxException($"Line {pc + 1}: {ex.Message}", ex);
                 }
                 catch (BooseSyntaxException)
                 {
@@ -117,10 +334,15 @@ namespace MyBooseAppFramework
                 }
                 catch (Exception ex)
                 {
-                    throw new BooseRuntimeException($"Runtime error on line {lineNumber}: {ex.Message}", ex);
+                    throw new BooseRuntimeException($"Runtime error near line {pc + 1}: {ex.Message}", ex);
                 }
             }
+
+            if (ifStack.Count > 0) throw new BooseSyntaxException("Unclosed IF block.");
+            if (whileStack.Count > 0) throw new BooseSyntaxException("Unclosed WHILE block.");
+            if (forStack.Count > 0) throw new BooseSyntaxException("Unclosed FOR block.");
         }
+
         private static bool IsAssignmentLine(string line)
         {
             if (!line.Contains("=")) return false;
