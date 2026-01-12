@@ -37,28 +37,28 @@ Read the hand in instructions on myBeckett carefully to ensure you are submittin
 
 
 # Final Submission
-#### 1 Further Version Control (1)
+#### 1 Further Version Control (1) DONE
 	You must continue to use VC to a professional standard with frequent and clear commits
 	Your Readme.md must be up to date
-#### 2 Use of Interfaces (1)
+#### 2 Use of Interfaces (1) DONE
 	Interfaces to be used for all classes where appropriate
-#### 3 Further Unit Testing (1)
+#### 3 Further Unit Testing (1) DONE
 	Tests for full program all of the facilities completed in 5,6 and 7 below
 	It is up to you how design your tests (i.e. one test per facility or one test testing many but they must be clearly documented with XML comments)
-#### 4 Design Patterns (1)
+#### 4 Design Patterns (1) DONE
 	Use of factory Design Pattern for command creation
 	Use of Singleton Design Pattern
 	Demonstrate the use of another design pattern of your choice
 	(for 5,6 and 7 you can click the links to see the example BOOSE programs that must be run, these are in your Portfolio. You must run the unrestricted programs and replace the image already there with an 	image of your BOOSE Interpreter running the BOOSE programs. You may show further programs in your portfolio.)
-#### 5 Replaced variables (2) \*
+#### 5 Replaced variables (2) \* DONE
 	Int	
 	Real	
 	Array	
-#### 6 Replaced if, while, for (2) \*
+#### 6 Replaced if, while, for (2) \* DONE
 	While 	
 	For	
 	If else	
-#### 7 Replaced Methods (2) \*
+#### 7 Replaced Methods (2) \* DONE
 
 #### 8 Additional (web version, text-based version, extension to BOOSE itself, etc, discuss with your tutor) (2) 
 \* You must rewrite the functionality and not try and "hack the system". I've tried to make it so you can't but who knows, either way, you've been told.
