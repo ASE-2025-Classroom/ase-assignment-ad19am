@@ -7,12 +7,23 @@ using System.Drawing;
 namespace MyBooseAppFramework
 {
     /// <summary>
-    /// Executes simple BOOSE programs consisting of moveto, drawto and
-    /// basic drawing commands. Maintains a single BoosePen instance.
+    /// Executes simple BOOSE programs consisting of variables, if/else, loops and methods.
+    /// Maintains a single BoosePen instance.
     /// </summary>
     public class BooseProgramRunner : IBooseRuntime
-    {   
+    {
         private readonly ICommandFactory _factory = new CommandFactory();
+
+        private sealed class MethodDef
+        {
+            public string ReturnType { get; set; }
+            public string Name { get; set; }
+            public List<(string type, string name)> Parameters { get; } = new List<(string type, string name)>();
+            public List<string> BodyLines { get; } = new List<string>();
+        }
+
+        private readonly Dictionary<string, MethodDef> _methods =
+            new Dictionary<string, MethodDef>(StringComparer.OrdinalIgnoreCase);
 
         /// <summary>
         /// Returns information about this BOOSE library, used for the About display.
@@ -51,18 +62,8 @@ namespace MyBooseAppFramework
 
         /// <summary>
         /// Runs a BOOSE program made up of commands (one per line).
-        /// Supports: moveto, drawto, pencolour, circle, rect, write.
+        /// Supports: variables, if/else/endif, while/endwhile, for/endfor, and methods (method/end method/call).
         /// </summary>
-        /// <param name="programText">
-        /// The text of the program. Lines such as 'moveto 10,10' or 'circle 50'.
-        /// </param>
-        /// <exception cref="ArgumentNullException">Thrown if programText is null.</exception>
-        /// <exception cref="BooseSyntaxException">
-        /// Thrown when the program contains unknown commands or badly formatted coordinates.
-        /// </exception>
-        /// <exception cref="BooseRuntimeException">
-        /// Thrown when an unexpected runtime error occurs while executing the program.
-        /// </exception>
         public void Run(string programText)
         {
             if (programText == null)
@@ -93,10 +94,31 @@ namespace MyBooseAppFramework
                 safety++;
                 if (safety > 200000) throw new BooseRuntimeException("Safety stop: possible infinite loop.");
 
-                string line = lines[pc];
+                string originalLine = lines[pc];
+                string line = originalLine.Trim();
 
                 try
                 {
+                    if (line.StartsWith("method ", StringComparison.OrdinalIgnoreCase))
+                    {
+                        pc = ParseAndStoreMethod(lines, pc);
+                        continue;
+                    }
+
+                    if (line.StartsWith("call ", StringComparison.OrdinalIgnoreCase))
+                    {
+                        ExecuteCall(line);
+                        pc++;
+                        continue;
+                    }
+
+
+                    if (line.StartsWith("int ", StringComparison.OrdinalIgnoreCase) ||
+                        line.StartsWith("real ", StringComparison.OrdinalIgnoreCase))
+                    {
+                        line = StripLeadingTypeKeyword(line);
+                    }
+
                     if (line.StartsWith("if ", StringComparison.OrdinalIgnoreCase))
                     {
                         string cond = line.Substring(3).Trim();
@@ -109,7 +131,7 @@ namespace MyBooseAppFramework
                             int j = pc + 1;
                             for (; j < lines.Count; j++)
                             {
-                                string t = lines[j];
+                                string t = lines[j].Trim();
                                 if (t.StartsWith("if ", StringComparison.OrdinalIgnoreCase)) depth++;
                                 else if (t.Equals("endif", StringComparison.OrdinalIgnoreCase))
                                 {
@@ -138,7 +160,7 @@ namespace MyBooseAppFramework
                             int j = pc + 1;
                             for (; j < lines.Count; j++)
                             {
-                                string t = lines[j];
+                                string t = lines[j].Trim();
                                 if (t.StartsWith("if ", StringComparison.OrdinalIgnoreCase)) depth++;
                                 else if (t.Equals("endif", StringComparison.OrdinalIgnoreCase))
                                 {
@@ -176,7 +198,7 @@ namespace MyBooseAppFramework
                             int j = pc + 1;
                             for (; j < lines.Count; j++)
                             {
-                                string t = lines[j];
+                                string t = lines[j].Trim();
                                 if (t.StartsWith("while ", StringComparison.OrdinalIgnoreCase)) depth++;
                                 else if (t.Equals("endwhile", StringComparison.OrdinalIgnoreCase))
                                 {
@@ -199,7 +221,7 @@ namespace MyBooseAppFramework
                         if (whileStack.Count == 0) throw new BooseSyntaxException("endwhile without matching while");
 
                         int whileLineIndex = whileStack.Peek();
-                        string whileLine = lines[whileLineIndex];
+                        string whileLine = lines[whileLineIndex].Trim();
                         string cond = whileLine.Substring(6).Trim();
 
                         if (EvaluateCondition(cond))
@@ -261,7 +283,7 @@ namespace MyBooseAppFramework
                             int j = pc + 1;
                             for (; j < lines.Count; j++)
                             {
-                                string t = lines[j];
+                                string t = lines[j].Trim();
                                 if (t.StartsWith("for ", StringComparison.OrdinalIgnoreCase)) depth++;
                                 else if (t.Equals("endfor", StringComparison.OrdinalIgnoreCase))
                                 {
@@ -313,6 +335,12 @@ namespace MyBooseAppFramework
                         continue;
                     }
 
+
+                    if (line.StartsWith("write ", StringComparison.OrdinalIgnoreCase))
+                    {
+                        line = RewriteWriteToValueIfNeeded(line);
+                    }
+
                     int firstSpace = line.IndexOf(' ');
                     string keyword = firstSpace < 0 ? line : line.Substring(0, firstSpace);
                     string argString = firstSpace < 0 ? "" : line.Substring(firstSpace + 1);
@@ -343,11 +371,199 @@ namespace MyBooseAppFramework
             if (forStack.Count > 0) throw new BooseSyntaxException("Unclosed FOR block.");
         }
 
+
+        private int ParseAndStoreMethod(List<string> lines, int startIndex)
+        {
+
+            string header = lines[startIndex].Trim();
+
+            var parts = header.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            if (parts.Length < 4)
+                throw new BooseSyntaxException("Invalid method header. Expected: method <type> <name> ...");
+
+            string returnType = parts[1].Trim().ToLowerInvariant();
+            string methodName = parts[2].Trim();
+
+            var def = new MethodDef
+            {
+                ReturnType = returnType,
+                Name = methodName
+            };
+
+            string paramText = header.Substring(header.IndexOf(methodName, StringComparison.Ordinal) + methodName.Length).Trim();
+
+            if (!string.IsNullOrWhiteSpace(paramText))
+            {
+                var paramChunks = paramText.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                foreach (var chunk in paramChunks)
+                {
+                    var p = chunk.Trim().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                    if (p.Length != 2)
+                        throw new BooseSyntaxException("Invalid parameter list. Expected: <type> <name>");
+
+                    def.Parameters.Add((p[0].Trim().ToLowerInvariant(), p[1].Trim()));
+                }
+            }
+
+            int i = startIndex + 1;
+            for (; i < lines.Count; i++)
+            {
+                string ln = lines[i].Trim();
+                if (ln.Equals("end method", StringComparison.OrdinalIgnoreCase))
+                    break;
+
+                if (!string.IsNullOrWhiteSpace(ln) && !ln.StartsWith("//"))
+                    def.BodyLines.Add(ln);
+            }
+
+            if (i >= lines.Count)
+                throw new BooseSyntaxException($"Method '{methodName}' is missing 'end method'.");
+
+            _methods[methodName] = def;
+
+            return i + 1;
+        }
+
+        private void ExecuteCall(string line)
+        {
+            var parts = line.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            if (parts.Length < 2)
+                throw new BooseSyntaxException("call syntax must be: call <methodName> <args...>");
+
+            string calledName = parts[1].Trim();
+
+            MethodDef def = FindMethodWithTolerance(calledName);
+            if (def == null)
+                throw new BooseSyntaxException($"Unknown method '{calledName}'.");
+
+            var argTokens = new List<string>();
+            for (int i = 2; i < parts.Length; i++)
+                argTokens.Add(parts[i]);
+
+            if (argTokens.Count != def.Parameters.Count)
+                throw new BooseSyntaxException($"Method '{def.Name}' expects {def.Parameters.Count} arguments.");
+
+            for (int i = 0; i < def.Parameters.Count; i++)
+            {
+                double value = ResolveValue(argTokens[i]);
+                string paramName = def.Parameters[i].name;
+                BooseContext.Instance.Variables.SetScalar(paramName, value);
+            }
+
+            foreach (var bodyLineRaw in def.BodyLines)
+            {
+                string bodyLine = bodyLineRaw.Trim();
+
+                if (bodyLine.StartsWith("int ", StringComparison.OrdinalIgnoreCase) ||
+                    bodyLine.StartsWith("real ", StringComparison.OrdinalIgnoreCase))
+                {
+                    bodyLine = StripLeadingTypeKeyword(bodyLine);
+                }
+
+                if (IsAssignmentLine(bodyLine))
+                {
+                    var varCmd = new MyBooseAppFramework.Commands.SetVariableCommand(bodyLine);
+                    varCmd.Execute(this);
+                    continue;
+                }
+
+                if (bodyLine.StartsWith("write ", StringComparison.OrdinalIgnoreCase))
+                {
+                    bodyLine = RewriteWriteToValueIfNeeded(bodyLine);
+                }
+
+                int firstSpace = bodyLine.IndexOf(' ');
+                string keyword = firstSpace < 0 ? bodyLine : bodyLine.Substring(0, firstSpace);
+                string argString = firstSpace < 0 ? "" : bodyLine.Substring(firstSpace + 1);
+
+                string[] args = argString.Split(new[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                var cmd = _factory.Create(keyword, args);
+                cmd.Execute(this);
+            }
+
+            double ret = 0;
+            try
+            {
+                ret = BooseContext.Instance.Variables.GetScalar(def.Name);
+            }
+            catch
+            {
+                ret = 0;
+            }
+
+            BooseContext.Instance.Variables.SetScalar(calledName, ret);
+        }
+
+        private MethodDef FindMethodWithTolerance(string calledName)
+        {
+            if (_methods.TryGetValue(calledName, out var exact))
+                return exact;
+
+            MethodDef best = null;
+            int bestDist = int.MaxValue;
+
+            foreach (var kv in _methods)
+            {
+                int d = LevenshteinDistance(calledName.ToLowerInvariant(), kv.Key.ToLowerInvariant());
+                if (d < bestDist)
+                {
+                    bestDist = d;
+                    best = kv.Value;
+                }
+            }
+
+            if (bestDist <= 1) return best;
+            return null;
+        }
+
+        private static int LevenshteinDistance(string a, string b)
+        {
+            int n = a.Length;
+            int m = b.Length;
+            var dp = new int[n + 1, m + 1];
+
+            for (int i = 0; i <= n; i++) dp[i, 0] = i;
+            for (int j = 0; j <= m; j++) dp[0, j] = j;
+
+            for (int i = 1; i <= n; i++)
+            {
+                for (int j = 1; j <= m; j++)
+                {
+                    int cost = (a[i - 1] == b[j - 1]) ? 0 : 1;
+                    dp[i, j] = Math.Min(
+                        Math.Min(dp[i - 1, j] + 1, dp[i, j - 1] + 1),
+                        dp[i - 1, j - 1] + cost);
+                }
+            }
+            return dp[n, m];
+        }
+
+
+        private static string StripLeadingTypeKeyword(string line)
+        {
+            var parts = line.Split(new[] { ' ' }, 2, StringSplitOptions.RemoveEmptyEntries);
+            if (parts.Length < 2) return line;
+            return parts[1].Trim();
+        }
+
+        private string RewriteWriteToValueIfNeeded(string line)
+        {
+            string arg = line.Substring(5).Trim();
+            if (arg.StartsWith("\"") && arg.EndsWith("\""))
+                return line;
+
+            double v = ResolveValue(arg);
+            string asText = v.ToString();
+
+            return $"write \"{asText}\"";
+        }
+
         private static bool IsAssignmentLine(string line)
         {
             if (!line.Contains("=")) return false;
             if (line.Contains("==") || line.Contains("!=") || line.Contains(">=") || line.Contains("<=")) return false;
             if (line.TrimStart().StartsWith("for ", StringComparison.OrdinalIgnoreCase)) return false;
+            if (line.TrimStart().StartsWith("method ", StringComparison.OrdinalIgnoreCase)) return false;
             return true;
         }
 
@@ -412,16 +628,6 @@ namespace MyBooseAppFramework
             return vars.GetScalar(token);
         }
 
-        /// <summary>
-        /// Parses two integer coordinates from a command line, e.g. 'moveto 100,200'.
-        /// </summary>
-        /// <param name="line">The full line of text from the program.</param>
-        /// <param name="command">The command name (moveto or drawto).</param>
-        /// <param name="lineNumber">The current line number for error reporting.</param>
-        /// <returns>A tuple containing the parsed X and Y coordinates.</returns>
-        /// <exception cref="FormatException">
-        /// Thrown when the coordinates cannot be parsed as two comma-separated integers.
-        /// </exception>
         private static (int x, int y) ParseTwoInts(string line, string command, int lineNumber)
         {
             string argsPart = line.Substring(command.Length).Trim();

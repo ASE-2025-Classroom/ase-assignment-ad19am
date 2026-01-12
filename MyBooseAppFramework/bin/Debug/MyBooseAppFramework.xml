@@ -67,8 +67,8 @@
         </member>
         <member name="T:MyBooseAppFramework.BooseProgramRunner">
             <summary>
-            Executes simple BOOSE programs consisting of moveto, drawto and
-            basic drawing commands. Maintains a single BoosePen instance.
+            Executes simple BOOSE programs consisting of variables, if/else, loops and methods.
+            Maintains a single BoosePen instance.
             </summary>
         </member>
         <member name="M:MyBooseAppFramework.BooseProgramRunner.About">
@@ -100,30 +100,8 @@
         <member name="M:MyBooseAppFramework.BooseProgramRunner.Run(System.String)">
             <summary>
             Runs a BOOSE program made up of commands (one per line).
-            Supports: moveto, drawto, pencolour, circle, rect, write.
+            Supports: variables, if/else/endif, while/endwhile, for/endfor, and methods (method/end method/call).
             </summary>
-            <param name="programText">
-            The text of the program. Lines such as 'moveto 10,10' or 'circle 50'.
-            </param>
-            <exception cref="T:System.ArgumentNullException">Thrown if programText is null.</exception>
-            <exception cref="T:MyBooseAppFramework.BooseSyntaxException">
-            Thrown when the program contains unknown commands or badly formatted coordinates.
-            </exception>
-            <exception cref="T:MyBooseAppFramework.BooseRuntimeException">
-            Thrown when an unexpected runtime error occurs while executing the program.
-            </exception>
-        </member>
-        <member name="M:MyBooseAppFramework.BooseProgramRunner.ParseTwoInts(System.String,System.String,System.Int32)">
-            <summary>
-            Parses two integer coordinates from a command line, e.g. 'moveto 100,200'.
-            </summary>
-            <param name="line">The full line of text from the program.</param>
-            <param name="command">The command name (moveto or drawto).</param>
-            <param name="lineNumber">The current line number for error reporting.</param>
-            <returns>A tuple containing the parsed X and Y coordinates.</returns>
-            <exception cref="T:System.FormatException">
-            Thrown when the coordinates cannot be parsed as two comma-separated integers.
-            </exception>
         </member>
         <member name="T:MyBooseAppFramework.Commands.CircleCommand">
             <summary>
