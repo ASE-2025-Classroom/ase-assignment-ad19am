@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using MyBooseAppFramework;
-using System.Diagnostics;
 using MyBooseAppFramework.Interfaces;
 
 namespace MyBooseAppUI
@@ -18,7 +12,7 @@ namespace MyBooseAppUI
         public Form1()
         {
             InitializeComponent();
-            
+
             BooseContext.Instance.Output = this;
 
             string aboutText = BooseProgramRunner.About();
@@ -38,7 +32,6 @@ namespace MyBooseAppUI
             string program = txtProgram.Text;
 
             txtOutput.Clear();
-
             Debug.WriteLine("Run button clicked");
 
             try
@@ -51,11 +44,15 @@ namespace MyBooseAppUI
 
                     foreach (string cmd in runner.Commands)
                     {
-                        var parts = cmd.Split(' ');
+                        var parts = cmd.Split(new[] { ' ' }, 2);
+                        if (parts.Length < 2) continue;
 
-                        if (cmd.StartsWith("circle"))
+                        string commandName = parts[0].Trim().ToLowerInvariant();
+                        string argString = parts[1];
+
+                        if (commandName == "circle")
                         {
-                            var args = parts[1].Split(',');
+                            var args = argString.Split(',');
                             int x = int.Parse(args[0]);
                             int y = int.Parse(args[1]);
                             int r = int.Parse(args[2]);
@@ -68,9 +65,9 @@ namespace MyBooseAppUI
                                 g.DrawEllipse(p, x - r, y - r, r * 2, r * 2);
                             }
                         }
-                        else if (cmd.StartsWith("rect"))
+                        else if (commandName == "rect")
                         {
-                            var args = parts[1].Split(',');
+                            var args = argString.Split(',');
                             int x = int.Parse(args[0]);
                             int y = int.Parse(args[1]);
                             int w = int.Parse(args[2]);
@@ -84,12 +81,14 @@ namespace MyBooseAppUI
                                 g.DrawRectangle(p, x, y, w, h);
                             }
                         }
-                        else if (cmd.StartsWith("write"))
+                        else if (commandName == "write")
                         {
-                            var args = parts[1].Split(',');
+                            var args = argString.Split(',');
                             int x = int.Parse(args[0]);
                             int y = int.Parse(args[1]);
-                            string text = args[2].Trim('"');
+
+                            string text = args[2].Trim().Trim('"');
+
                             int rr = int.Parse(args[3]);
                             int gg = int.Parse(args[4]);
                             int bb = int.Parse(args[5]);
@@ -102,7 +101,7 @@ namespace MyBooseAppUI
                     }
                 }
 
-                txtOutput.AppendText($"Completed.\r\n");
+                txtOutput.AppendText("Completed.\r\n");
                 txtOutput.AppendText($"Final Pen Position: ({runner.Pen.X}, {runner.Pen.Y})\r\n");
 
                 Debug.WriteLine($"Pen is now at ({runner.Pen.X}, {runner.Pen.Y})");
@@ -121,14 +120,7 @@ namespace MyBooseAppUI
             }
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtProgram_TextChanged(object sender, EventArgs e)
-        {
-
-        }
+        private void Form1_Load(object sender, EventArgs e) { }
+        private void txtProgram_TextChanged(object sender, EventArgs e) { }
     }
 }

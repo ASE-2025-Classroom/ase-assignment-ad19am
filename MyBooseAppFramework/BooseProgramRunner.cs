@@ -121,6 +121,47 @@ namespace MyBooseAppFramework
                 }
             }
         }
+        private static bool IsAssignmentLine(string line)
+        {
+            if (!line.Contains("=")) return false;
+            if (line.Contains("==") || line.Contains("!=") || line.Contains(">=") || line.Contains("<=")) return false;
+            if (line.TrimStart().StartsWith("for ", StringComparison.OrdinalIgnoreCase)) return false;
+            return true;
+        }
+
+        private bool EvaluateCondition(string condition)
+        {
+            string[] ops = new[] { "==", "!=", ">=", "<=", ">", "<" };
+
+            string op = null;
+            int opPos = -1;
+
+            foreach (var candidate in ops)
+            {
+                opPos = condition.IndexOf(candidate, StringComparison.Ordinal);
+                if (opPos >= 0) { op = candidate; break; }
+            }
+
+            if (op == null) throw new FormatException($"Invalid condition: {condition}");
+
+            string left = condition.Substring(0, opPos).Trim();
+            string right = condition.Substring(opPos + op.Length).Trim();
+
+            double a = ResolveValue(left);
+            double b = ResolveValue(right);
+
+            switch (op)
+            {
+                case "==": return Math.Abs(a - b) < 0.000001;
+                case "!=": return Math.Abs(a - b) >= 0.000001;
+                case ">": return a > b;
+                case "<": return a < b;
+                case ">=": return a >= b;
+                case "<=": return a <= b;
+                default: throw new FormatException($"Unknown operator: {op}");
+            }
+        }
+
         public double ResolveValue(string token)
         {
             if (string.IsNullOrWhiteSpace(token))
