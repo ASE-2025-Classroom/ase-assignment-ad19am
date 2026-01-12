@@ -1,10 +1,11 @@
+using System;
 using MyBooseAppFramework.Interfaces;
 
 namespace MyBooseAppFramework.Commands
+/// <summary>
+/// Command to move the pen to a new position without drawing.
+/// </summary>
 {
-    /// <summary>
-    /// Command to move the pen to a new position without drawing.
-    /// </summary>
     public class MoveToCommand : ICommand
     {
         private readonly string[] _args;
@@ -12,18 +13,18 @@ namespace MyBooseAppFramework.Commands
 
         public MoveToCommand(string[] args)
         {
-            _args = args;
+            _args = args ?? Array.Empty<string>();
         }
 
         public void Execute(IBooseRuntime runtime)
         {
-            var runner = (BooseProgramRunner)runtime;
+            if (runtime == null) throw new ArgumentNullException(nameof(runtime));
+            if (_args.Length < 2) throw new FormatException("moveto requires 2 values: x,y");
 
-            int x = (int)runner.ResolveValue(_args[0]);
-            int y = (int)runner.ResolveValue(_args[1]);
+            int x = (int)runtime.ResolveValue(_args[0]);
+            int y = (int)runtime.ResolveValue(_args[1]);
 
             runtime.Pen.MoveTo(x, y);
-            runtime.Commands.Add($"moveto {x},{y}");
         }
     }
 }

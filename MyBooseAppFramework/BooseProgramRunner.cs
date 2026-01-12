@@ -79,6 +79,8 @@ namespace MyBooseAppFramework
                 var ln = rl.Trim();
                 if (string.IsNullOrWhiteSpace(ln)) continue;
                 if (ln.StartsWith("//")) continue;
+                if (ln.StartsWith("*")) continue;
+                if (ln.StartsWith("use ", StringComparison.OrdinalIgnoreCase)) continue;
                 lines.Add(ln);
             }
 
@@ -113,8 +115,9 @@ namespace MyBooseAppFramework
                     }
 
 
-                    if (line.StartsWith("int ", StringComparison.OrdinalIgnoreCase) ||
-                        line.StartsWith("real ", StringComparison.OrdinalIgnoreCase))
+                    if ((line.StartsWith("int ", StringComparison.OrdinalIgnoreCase) ||
+                         line.StartsWith("real ", StringComparison.OrdinalIgnoreCase)) &&
+                        line.Contains("="))
                     {
                         line = StripLeadingTypeKeyword(line);
                     }
@@ -324,6 +327,22 @@ namespace MyBooseAppFramework
                             forStack.Pop();
                             pc++;
                         }
+                        continue;
+                    }
+
+                    if ((line.StartsWith("int ", StringComparison.OrdinalIgnoreCase) ||
+                         line.StartsWith("real ", StringComparison.OrdinalIgnoreCase)) &&
+                        !line.Contains("="))
+                    {
+                        string name = line.StartsWith("int ", StringComparison.OrdinalIgnoreCase)
+                            ? line.Substring(4).Trim()
+                            : line.Substring(5).Trim();
+
+                        if (string.IsNullOrWhiteSpace(name))
+                            throw new FormatException("Declaration missing variable name.");
+
+                        BooseContext.Instance.Variables.SetScalar(name, 0);
+                        pc++;
                         continue;
                     }
 

@@ -108,26 +108,6 @@
             Command to draw a circle at the current pen position.
             </summary>
         </member>
-        <member name="T:MyBooseAppFramework.Commands.DrawToCommand">
-            <summary>
-            Command to draw a line from the current pen position to a new position.
-            </summary>
-        </member>
-        <member name="T:MyBooseAppFramework.Commands.MoveToCommand">
-            <summary>
-            Command to move the pen to a new position without drawing.
-            </summary>
-        </member>
-        <member name="T:MyBooseAppFramework.Commands.PenColourCommand">
-            <summary>
-            Command to change pen colour.
-            </summary>
-        </member>
-        <member name="T:MyBooseAppFramework.Commands.RectCommand">
-            <summary>
-            Command to draw a rectangle at the current pen position.
-            </summary>
-        </member>
         <member name="T:MyBooseAppFramework.Commands.WriteCommand">
             <summary>
             Command to write text at the current pen position.

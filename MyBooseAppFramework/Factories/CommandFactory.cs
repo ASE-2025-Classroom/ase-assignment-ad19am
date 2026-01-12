@@ -16,7 +16,7 @@ namespace MyBooseAppFramework.Factories
                     return new MoveToCommand(args);
 
                 case "drawto":
-                    return new DrawToCommand(args); // only if you created DrawToCommand
+                    return new DrawToCommand(args);
 
                 case "circle":
                     return new CircleCommand(args);
@@ -24,6 +24,7 @@ namespace MyBooseAppFramework.Factories
                 case "rect":
                     return new RectCommand(args);
 
+                case "pen":
                 case "pencolour":
                 case "pencolor":
                     return new PenColourCommand(args);
