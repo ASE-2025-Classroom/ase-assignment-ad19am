@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MyBooseApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9797ef4762f5f5bce8aa6dd8d79dca823a8a16fe")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1a70305a20020dd275d46e9a31c9f86456818dde")]
 [assembly: System.Reflection.AssemblyProductAttribute("MyBooseApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MyBooseApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

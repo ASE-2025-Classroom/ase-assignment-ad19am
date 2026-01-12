@@ -8,5 +8,7 @@ namespace MyBooseAppFramework.Interfaces
         BoosePen Pen { get; }
         Color PenColor { get; set; }
         List<string> Commands { get; }
+
+        double ResolveValue(string token);
     }
 }

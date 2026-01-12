@@ -47,9 +47,11 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BooseContextTests.cs" />
+    <Compile Include="BooseExceptionsTests.cs" />
     <Compile Include="BooseProgramRunnerTests.cs" />
     <Compile Include="CircleCommandTests.cs" />
     <Compile Include="CommandFactoryTests.cs" />

@@ -10,18 +10,16 @@ namespace MyBooseAppFramework.Commands
 
         public SetVariableCommand(string line)
         {
-            _line = line;
+            _line = line ?? throw new ArgumentNullException(nameof(line));
         }
 
         public void Execute(IBooseRuntime runtime)
         {
+            if (runtime == null) throw new ArgumentNullException(nameof(runtime));
+
             var vars = BooseContext.Instance.Variables;
             if (vars == null)
                 throw new InvalidOperationException("VariableStore not initialised.");
-
-            var runner = runtime as BooseProgramRunner;
-            if (runner == null)
-                throw new InvalidOperationException("SetVariableCommand requires BooseProgramRunner runtime.");
 
             var parts = _line.Split(new[] { '=' }, 2);
             if (parts.Length != 2)
@@ -33,9 +31,10 @@ namespace MyBooseAppFramework.Commands
             if (right.StartsWith("array", StringComparison.OrdinalIgnoreCase))
             {
                 var rParts = right.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                if (rParts.Length != 2) throw new FormatException("Array declaration must be: name = array size");
+                if (rParts.Length != 2)
+                    throw new FormatException("Array declaration must be: name = array size");
 
-                int size = (int)runner.ResolveValue(rParts[1]);
+                int size = (int)runtime.ResolveValue(rParts[1]);
                 vars.DeclareArray(left, size);
                 return;
             }
@@ -43,21 +42,29 @@ namespace MyBooseAppFramework.Commands
             if (left.Contains("[") && left.EndsWith("]"))
             {
                 int open = left.IndexOf('[');
-                string name = left.Substring(0, open).Trim();
-                string indexStr = left.Substring(open + 1, left.Length - open - 2);
+                if (open <= 0)
+                    throw new FormatException("Invalid array syntax on left side.");
 
-                int index = (int)runner.ResolveValue(indexStr);
-                double value = EvaluateExpression(runner, right);
+                string name = left.Substring(0, open).Trim();
+                string indexStr = left.Substring(open + 1, left.Length - open - 2).Trim();
+
+                int index = (int)runtime.ResolveValue(indexStr);
+                double value = EvaluateExpression(runtime, right);
 
                 vars.SetArrayValue(name, index, value);
                 return;
             }
 
-            vars.SetScalar(left, EvaluateExpression(runner, right));
+            vars.SetScalar(left, EvaluateExpression(runtime, right));
         }
 
-        private double EvaluateExpression(BooseProgramRunner runner, string expr)
+        private static double EvaluateExpression(IBooseRuntime runtime, string expr)
         {
+            if (string.IsNullOrWhiteSpace(expr))
+                throw new FormatException("Missing expression on right side.");
+
+            expr = expr.Trim();
+
             string[] ops = { "+", "-", "*", "/" };
 
             foreach (var op in ops)
@@ -68,8 +75,8 @@ namespace MyBooseAppFramework.Commands
                     string a = expr.Substring(0, idx).Trim();
                     string b = expr.Substring(idx + 1).Trim();
 
-                    double x = runner.ResolveValue(a);
-                    double y = runner.ResolveValue(b);
+                    double x = runtime.ResolveValue(a);
+                    double y = runtime.ResolveValue(b);
 
                     switch (op)
                     {
@@ -81,7 +88,7 @@ namespace MyBooseAppFramework.Commands
                 }
             }
 
-            return runner.ResolveValue(expr);
+            return runtime.ResolveValue(expr);
         }
     }
 }

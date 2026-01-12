@@ -31,19 +31,21 @@ namespace MyBooseAppTests
         [TestMethod]
         public void Array_CreationAndAccess_WorksViaBooseSyntax()
         {
-            BooseContext.Instance.Variables = new VariableStore();
+            var runner = new BooseProgramRunner();
 
-            var create = new SetVariableCommand("arr = array 3");
-            create.Execute(null);
+            BooseContext.Instance.Variables = new MyBooseAppFramework.Stores.VariableStore();
 
-            var set0 = new SetVariableCommand("arr[0] = 20");
-            set0.Execute(null);
+            string program = @"arr = array 3
+arr[0] = 20
+arr[1] = 40
+arr[2] = 60";
 
-            var set1 = new SetVariableCommand("arr[1] = 40");
-            set1.Execute(null);
+            runner.Run(program);
 
-            Assert.AreEqual(20, BooseContext.Instance.Variables.GetArrayValue("arr", 0));
-            Assert.AreEqual(40, BooseContext.Instance.Variables.GetArrayValue("arr", 1));
+            var vars = BooseContext.Instance.Variables;
+            Assert.AreEqual(20, vars.GetArrayValue("arr", 0));
+            Assert.AreEqual(40, vars.GetArrayValue("arr", 1));
+            Assert.AreEqual(60, vars.GetArrayValue("arr", 2));
         }
 
         /// <summary>
