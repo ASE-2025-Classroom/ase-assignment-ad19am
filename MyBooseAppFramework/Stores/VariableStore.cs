@@ -14,6 +14,16 @@ namespace MyBooseAppFramework.Stores
 
         private readonly Stack<Dictionary<string, double[]>> _arrays =
             new Stack<Dictionary<string, double[]>>();
+        public void CreateArray(string name, int size)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new ArgumentException("Array name cannot be empty.", nameof(name));
+
+            if (size <= 0)
+                throw new ArgumentException("Array size must be greater than zero.", nameof(size));
+
+            _arrays.Peek()[name] = new double[size];
+        }
 
         public VariableStore()
         {
@@ -51,8 +61,7 @@ namespace MyBooseAppFramework.Stores
 
         public void DeclareArray(string name, int size)
         {
-            if (size <= 0) throw new ArgumentOutOfRangeException(nameof(size), "Array size must be > 0.");
-            _arrays.Peek()[name] = new double[size];
+            CreateArray(name, size);
         }
 
         public void SetArrayValue(string name, int index, double value)

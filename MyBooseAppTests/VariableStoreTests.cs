@@ -1,10 +1,12 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MyBooseAppFramework;
+using MyBooseAppFramework.Commands;
 using MyBooseAppFramework.Stores;
 
 namespace MyBooseAppTests
 {
     /// <summary>
-    /// Unit tests for VariableStore
+    /// Unit tests for VariableStore.
     /// </summary>
     [TestClass]
     public class VariableStoreTests
@@ -23,26 +25,32 @@ namespace MyBooseAppTests
         }
 
         /// <summary>
-        /// Verifies array creation and retrieval works.
+        /// Verifies array values can be set and retrieved.
+        /// This mirrors how the interpreter uses arrays.
         /// </summary>
         [TestMethod]
-        public void CreateArray_SetAndGetArrayValue_Works()
+        public void Array_CreationAndAccess_WorksViaBooseSyntax()
         {
-            var store = new VariableStore();
+            BooseContext.Instance.Variables = new VariableStore();
 
-            store.CreateArray("arr", 3);
-            store.SetArrayValue("arr", 0, 20);
-            store.SetArrayValue("arr", 1, 40);
+            var create = new SetVariableCommand("arr = array 3");
+            create.Execute(null);
 
-            Assert.AreEqual(20, store.GetArrayValue("arr", 0));
-            Assert.AreEqual(40, store.GetArrayValue("arr", 1));
+            var set0 = new SetVariableCommand("arr[0] = 20");
+            set0.Execute(null);
+
+            var set1 = new SetVariableCommand("arr[1] = 40");
+            set1.Execute(null);
+
+            Assert.AreEqual(20, BooseContext.Instance.Variables.GetArrayValue("arr", 0));
+            Assert.AreEqual(40, BooseContext.Instance.Variables.GetArrayValue("arr", 1));
         }
 
         /// <summary>
-        /// Verifies GetScalar throws when variable not set.
+        /// Verifies unknown scalar access throws.
         /// </summary>
         [TestMethod]
-        [ExpectedException(typeof(System.Exception))]
+        [ExpectedException(typeof(System.Collections.Generic.KeyNotFoundException))]
         public void GetScalar_UnknownVariable_Throws()
         {
             var store = new VariableStore();

@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MyBooseAppFramework.Factories;
 using MyBooseAppFramework.Interfaces;
+using System;
 
 namespace MyBooseAppTests
 {
@@ -28,11 +29,11 @@ namespace MyBooseAppTests
         /// Verifies factory throws for an unknown keyword.
         /// </summary>
         [TestMethod]
-        [ExpectedException(typeof(System.Exception))]
-        public void Create_UnknownCommand_Throws()
+        [ExpectedException(typeof(ArgumentException))]
+        public void Create_UnknownCommand_ThrowsArgumentException()
         {
-            ICommandFactory factory = new CommandFactory();
-            factory.Create("doesnotexist", new string[0]);
+            var factory = new CommandFactory();
+            factory.Create("notARealCommand", new string[0]);
         }
     }
 }
